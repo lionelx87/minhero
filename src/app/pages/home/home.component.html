@@ -2,9 +2,11 @@
     <div class="home-page__header">
         <app-search-box></app-search-box>
         <div class="btn__add">
-            <button mat-fab extended (click)="goCreateHero()">
+            <button mat-fab [extended]="!(isHandset$ | async)" (click)="goCreateHero()">
              <mat-icon>add</mat-icon>
-             Nuevo
+             @if (!(isHandset$ | async)) {
+                 <span>Nuevo</span>
+             }
            </button>
         </div>
     </div>

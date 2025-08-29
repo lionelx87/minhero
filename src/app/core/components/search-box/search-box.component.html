@@ -3,8 +3,10 @@
     <mat-label>First name</mat-label>
     <input matInput />
   </mat-form-field>
-  <button class="search-box__btn" mat-fab extended>
+  <button class="search-box__btn" mat-fab [extended]="!(isHandset$ | async)">
     <mat-icon>search</mat-icon>
-    Buscar
+    @if (!(isHandset$ | async)) {
+      <span>Buscar</span>
+    }
   </button>
 </div>
