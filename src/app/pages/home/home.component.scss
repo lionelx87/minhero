@@ -3,5 +3,14 @@
     &__header {
         display: flex;
         justify-content: space-between;
+
+        > * {
+            flex: 1;
+        }
+
+        .btn__add {
+            display: flex;
+            justify-content: flex-end;
+        }
     }
 }

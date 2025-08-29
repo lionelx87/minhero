@@ -1,10 +1,12 @@
 <div class="home-page">
     <div class="home-page__header">
         <app-search-box></app-search-box>
-         <button mat-fab extended (click)="goCreateHero()">
-          <mat-icon>add</mat-icon>
-          Nuevo
-        </button>
+        <div class="btn__add">
+            <button mat-fab extended (click)="goCreateHero()">
+             <mat-icon>add</mat-icon>
+             Nuevo
+           </button>
+        </div>
     </div>
     <div class="home-page__heroes">
         <app-heroes-list></app-heroes-list>
