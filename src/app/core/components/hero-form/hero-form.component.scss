@@ -1,0 +1,27 @@
+.hero-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 40.625rem;
+    margin: 0 auto;
+
+    &__powerstats {
+        padding: 1rem;
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 5rem;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        gap: 2rem;
+
+        .btn {
+            flex: 1;
+        }
+
+        
+    }
+}

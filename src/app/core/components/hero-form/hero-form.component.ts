@@ -25,7 +25,7 @@ interface Food {
   styleUrl: './hero-form.component.scss',
 })
 export class HeroFormComponent {
-  selectedValue: string = 'steak-0';
+  selectedValue: string = 'dc';
   formatLabel(value: number): string {
     if (value >= 1000) {
       return Math.round(value / 1000) + 'k';
@@ -35,8 +35,9 @@ export class HeroFormComponent {
   }
 
   foods: Food[] = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' },
+    { value: 'dc', viewValue: 'DC' },
+    { value: 'marvel', viewValue: 'Marvel' },
+    { value: 'giant-man', viewValue: 'Giant-Man' },
+    { value: 'oracle', viewValue: 'Oracle' },
   ];
 }
