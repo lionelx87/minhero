@@ -21,6 +21,7 @@
     "paths": {
       "@core/*": ["app/core/*"],
       "@pages/*": ["app/pages/*"],
+      "@layouts/*": ["app/layouts/*"],
     }
   },
   "angularCompilerOptions": {
