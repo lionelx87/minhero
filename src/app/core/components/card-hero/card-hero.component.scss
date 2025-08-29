@@ -1,3 +1,8 @@
 .heroe-card {
     max-width: 28.125rem;
+
+    img {
+        object-fit: cover;
+        max-height: 28.125rem;        
+    }
 }
