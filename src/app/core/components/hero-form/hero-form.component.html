@@ -1,0 +1,31 @@
+<div class="hero-form">
+    <mat-form-field class="example-full-width">
+        <mat-label>First name</mat-label>
+        <input matInput>
+    </mat-form-field>
+
+    @for (item of [1,2,3,4,5,6]; track item) {
+        <mat-slider min="0" max="100000" step="1000" showTickMarks discrete [displayWith]="formatLabel">
+            <input matSliderThumb>
+        </mat-slider>
+    }
+
+    <mat-form-field class="example-full-width">
+        <mat-label>First name</mat-label>
+        <input matInput>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Address 2</mat-label>
+      <textarea matInput></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+    <mat-label>Favorite food</mat-label>
+    <mat-select [(ngModel)]="selectedValue" name="food">
+      @for (food of foods; track food) {
+        <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>
