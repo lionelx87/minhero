@@ -1,19 +1,19 @@
 <div class="home-page">
-    <div class="home-page__header">
-        <app-search-box></app-search-box>
-        <div class="btn__add">
-            <button mat-fab [extended]="!(isHandset$ | async)" (click)="goCreateHero()">
-             <mat-icon>add</mat-icon>
-             @if (!(isHandset$ | async)) {
-                 <span>Nuevo</span>
-             }
-           </button>
-        </div>
+  <div class="home-page__header">
+    <app-search-box></app-search-box>
+    <div class="btn__add">
+      <button mat-fab [extended]="!isMobile()" (click)="goCreateHero()">
+        <mat-icon>add</mat-icon>
+        @if (!isMobile()) {
+        <span>Nuevo</span>
+        }
+      </button>
     </div>
-    <div class="home-page__heroes">
-        <app-heroes-list></app-heroes-list>
-    </div>
-    <div class="home-page__pagination">
-        <app-pagination></app-pagination>
-    </div>
+  </div>
+  <div class="home-page__heroes">
+    <app-heroes-list></app-heroes-list>
+  </div>
+  <div class="home-page__pagination">
+    <app-pagination></app-pagination>
+  </div>
 </div>

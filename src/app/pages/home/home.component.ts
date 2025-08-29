@@ -1,6 +1,5 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
@@ -9,7 +8,7 @@ import {
   PaginationComponent,
   SearchBoxComponent,
 } from '@core/components';
-import { map, Observable, shareReplay } from 'rxjs';
+import { BreakpointsService } from 'app/shared/services/breakpoints.service';
 
 @Component({
   selector: 'app-home',
@@ -26,14 +25,9 @@ import { map, Observable, shareReplay } from 'rxjs';
 })
 export class HomeComponent {
   private readonly router = inject(Router);
-  private breakpointObserver = inject(BreakpointObserver);
+  private readonly breakpointsService = inject(BreakpointsService);
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
+  isMobile: Signal<boolean> = this.breakpointsService.isMobile;
 
   goCreateHero() {
     this.router.navigate(['/heroes/new']);
