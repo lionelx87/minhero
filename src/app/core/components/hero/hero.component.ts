@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-heroe',
@@ -8,4 +9,14 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
 })
-export class HeroComponent {}
+export class HeroComponent {
+  private readonly router = inject(Router);
+
+  goEditHero(): void {
+    this.router.navigate(['/heroes/2/edit']);
+  }
+
+  goHeroDetail(): void {
+    this.router.navigate(['/heroes/2']);
+  }
+}
