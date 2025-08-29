@@ -4,12 +4,12 @@ import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-heroe',
+  selector: 'app-card-heroe',
   imports: [MatCardModule, MatButtonModule],
-  templateUrl: './hero.component.html',
-  styleUrl: './hero.component.scss',
+  templateUrl: './card-hero.component.html',
+  styleUrl: './card-hero.component.scss',
 })
-export class HeroComponent {
+export class CardHeroComponent {
   private readonly router = inject(Router);
 
   goEditHero(): void {
