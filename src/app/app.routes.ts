@@ -12,6 +12,27 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
+    path: 'heroes/new',
+    loadComponent: () =>
+      import('./pages/hero-upsert/hero-upsert.component').then(
+        (m) => m.HeroUpsertComponent
+      ),
+  },
+  {
+    path: 'heroes/:id/edit',
+    loadComponent: () =>
+      import('./pages/hero-upsert/hero-upsert.component').then(
+        (m) => m.HeroUpsertComponent
+      ),
+  },
+  {
+    path: 'heroes/:id',
+    loadComponent: () =>
+      import('./pages/hero-detail/hero-detail.component').then(
+        (m) => m.HeroDetailComponent
+      ),
+  },
+  {
     path: 'about',
     loadComponent: () =>
       import('./pages/about/about.component').then((m) => m.AboutComponent),

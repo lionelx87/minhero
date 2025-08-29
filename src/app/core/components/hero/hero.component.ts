@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-heroe',
   imports: [MatCardModule, MatButtonModule],
-  templateUrl: './heroe.component.html',
-  styleUrl: './heroe.component.scss',
+  templateUrl: './hero.component.html',
+  styleUrl: './hero.component.scss',
 })
-export class HeroeComponent {}
+export class HeroComponent {}
