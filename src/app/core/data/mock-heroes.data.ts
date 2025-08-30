@@ -2,7 +2,7 @@ import { Hero } from '@core/models';
 
 const getHeroImagePath = (id: number) => `assets/images/heroes/${id}.webp`;
 
-export const MockHeroes: Hero[] = [
+export let MockHeroes: Hero[] = [
   {
     id: 1,
     name: 'batman',
