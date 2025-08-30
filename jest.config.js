@@ -17,6 +17,14 @@ module.exports = {
     '<rootDir>/src/**/*.spec.ts'
   ],
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
-  }
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@core/(.*)$': '<rootDir>/src/app/core/$1',
+    '^@pages/(.*)$': '<rootDir>/src/app/pages/$1',
+    '^@layouts/(.*)$': '<rootDir>/src/app/layouts/$1',
+    '^@shared/(.*)$': '<rootDir>/src/app/shared/$1'
+  },
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/dist/'
+  ],
 };
