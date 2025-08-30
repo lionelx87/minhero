@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { MockHeroes } from '@core/data/mock-heroes.data';
+import { Inject, Injectable } from '@angular/core';
 import { Hero } from '@core/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeroService {
-  private heroes: Hero[] = MockHeroes;
+  private heroes: Hero[];
 
-  constructor() {}
+  constructor(@Inject('HEROES_DATA') heroesData: Hero[]) {
+    this.heroes = [...heroesData];
+  }
 
   getAllHeroes(): Hero[] {
     return [...this.heroes];
