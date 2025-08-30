@@ -6,7 +6,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { BreakpointsService } from 'app/shared/services/breakpoints.service';
+import { BreakpointsService } from '@shared/services';
 
 @Component({
   selector: 'app-navigation',

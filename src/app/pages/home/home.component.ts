@@ -8,7 +8,7 @@ import {
   PaginationComponent,
   SearchBoxComponent,
 } from '@core/components';
-import { BreakpointsService } from 'app/shared/services/breakpoints.service';
+import { BreakpointsService } from '@shared/services';
 
 @Component({
   selector: 'app-home',
