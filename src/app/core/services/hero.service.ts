@@ -17,7 +17,7 @@ export class HeroService {
 
   searchHeroes(term: string): Hero[] {
     return this.heroes.filter((hero) =>
-      hero.name.toLowerCase().includes(term.toLowerCase())
+      hero.name.toLowerCase().includes(term.trim().toLowerCase())
     );
   }
 
@@ -26,7 +26,7 @@ export class HeroService {
   }
 
   createHero(hero: Omit<Hero, 'id'>): Hero {
-    const nextId = Math.max(...this.heroes.map((hero) => hero.id)) + 1;
+    const nextId = Math.max(0, ...this.heroes.map((hero) => hero.id)) + 1;
     const newHero: Hero = {
       ...hero,
       id: nextId,
