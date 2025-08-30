@@ -203,4 +203,19 @@ describe('HeroService', () => {
       expect(service.getHeroById(1)?.powerstats.combat).toBe(75);
     });
   });
+
+  describe('deleteHero', () => {
+    it('should return true when hero is successfully deleted', () => {
+      const isDeletedHero = service.deleteHero(1);
+      expect(isDeletedHero).toBeTruthy();
+    });
+    it('should return false when ID does not exist', () => {
+      const isDeletedHero = service.deleteHero(5);
+      expect(isDeletedHero).toBeFalsy();
+    });
+    it('should reduce the heroes array length by 1', () => {
+      service.deleteHero(1);
+      expect(service.getAllHeroes().length).toBe(1);
+    });
+  });
 });
