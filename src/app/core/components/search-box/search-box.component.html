@@ -1,12 +1,11 @@
 <div class="search-box">
   <mat-form-field class="search-box__input">
     <mat-label>First name</mat-label>
-    <input matInput />
+    <input
+      matInput
+      [value]="searchTerm()"
+      #input
+      (input)="onSearchChange.emit(input.value)"
+    />
   </mat-form-field>
-  <button class="search-box__btn" mat-fab [extended]="!isMobile()">
-    <mat-icon>search</mat-icon>
-    @if (!isMobile()) {
-      <span>Buscar</span>
-    }
-  </button>
 </div>

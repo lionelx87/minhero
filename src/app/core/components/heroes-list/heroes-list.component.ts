@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CardHeroComponent } from '../card-hero/card-hero.component';
+import { Hero } from '@core/models';
 
 @Component({
   selector: 'app-heroes-list',
@@ -7,4 +8,6 @@ import { CardHeroComponent } from '../card-hero/card-hero.component';
   templateUrl: './heroes-list.component.html',
   styleUrl: './heroes-list.component.scss',
 })
-export class HeroesListComponent {}
+export class HeroesListComponent {
+  heroes = input.required<Hero[]>();
+}

@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HeroConfirmDeleteComponent } from '../hero-confirm-delete/hero-confirm-delete.component';
+import { Hero } from '@core/models';
 
 @Component({
   selector: 'app-card-heroe',
@@ -14,6 +15,8 @@ import { HeroConfirmDeleteComponent } from '../hero-confirm-delete/hero-confirm-
 export class CardHeroComponent {
   private readonly router = inject(Router);
   readonly dialog = inject(MatDialog);
+
+  hero = input.required<Hero>();
 
   goEditHero(): void {
     this.router.navigate(['/heroes/2/edit']);

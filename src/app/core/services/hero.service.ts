@@ -1,56 +1,67 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, signal } from '@angular/core';
 import { Hero } from '@core/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeroService {
-  private heroes: Hero[];
+  public readonly heroesSignal = signal<Hero[]>([]);
 
   constructor(@Inject('HEROES_DATA') heroesData: Hero[]) {
-    this.heroes = [...heroesData];
+    this.heroesSignal.set([...heroesData]);
   }
 
   getAllHeroes(): Hero[] {
-    return [...this.heroes];
+    return this.heroesSignal();
   }
 
   searchHeroes(term: string): Hero[] {
-    return this.heroes.filter((hero) =>
+    return this.heroesSignal().filter((hero) =>
       hero.name.toLowerCase().includes(term.trim().toLowerCase())
     );
   }
 
   getHeroById(id: number): Hero | undefined {
-    return this.heroes.find((hero) => hero.id === id);
+    return this.heroesSignal().find((hero) => hero.id === id);
   }
 
   createHero(hero: Omit<Hero, 'id'>): Hero {
-    const nextId = Math.max(0, ...this.heroes.map((hero) => hero.id)) + 1;
+    const currentHeroes = this.heroesSignal();
+    const nextId =
+      currentHeroes.length > 0
+        ? Math.max(...currentHeroes.map((hero) => hero.id)) + 1
+        : 1;
     const newHero: Hero = {
       ...hero,
       id: nextId,
-      image: `assets/images/heroes/${1}.webp`,
+      image: `assets/images/heroes/${nextId}.webp`,
     };
-    this.heroes = [...this.heroes, newHero];
+    this.heroesSignal.update((heroes) => [...heroes, newHero]);
     return newHero;
   }
 
   updateHero(id: number, hero: Partial<Omit<Hero, 'id'>>): Hero | null {
-    const index = this.heroes.findIndex((hero) => hero.id === id);
+    const currentHeroes = this.heroesSignal();
+    const index = currentHeroes.findIndex((hero) => hero.id === id);
     if (index < 0) return null;
-    this.heroes[index] = {
-      ...this.heroes[index],
+    const updatedHero = {
+      ...currentHeroes[index],
       ...hero,
       id,
     };
-    return this.heroes[index];
+    this.heroesSignal.update((heroes) =>
+      heroes.map((hero, i) => (i === index ? updatedHero : hero))
+    );
+    return updatedHero;
   }
 
   deleteHero(id: number): boolean {
-    const index = this.heroes.findIndex((hero) => hero.id === id);
-    if (index < 0) return false;
-    this.heroes.splice(index, 1);
+    const currentHeroes = this.heroesSignal();
+    const heroExists = currentHeroes.some((hero) => hero.id === id);
+    if (!heroExists) return false;
+    this.heroesSignal.update((heroes) =>
+      heroes.filter((hero) => hero.id !== id)
+    );
     return true;
   }
 }

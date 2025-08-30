@@ -142,7 +142,7 @@ export let MockHeroes: Hero[] = [
   },
   {
     id: 9,
-    name: 'Iron man',
+    name: 'iron man',
     powerstats: {
       intelligence: 100,
       strength: 85,
@@ -159,7 +159,7 @@ export let MockHeroes: Hero[] = [
   },
   {
     id: 10,
-    name: 'Scarlet Witch',
+    name: 'scarlet witch',
     powerstats: {
       intelligence: 100,
       strength: 10,
