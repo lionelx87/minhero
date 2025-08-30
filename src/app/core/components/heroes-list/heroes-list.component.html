@@ -1,6 +1,5 @@
 <div class="heroes-list">
-    <app-card-heroe></app-card-heroe>
-    <app-card-heroe></app-card-heroe>
-    <app-card-heroe></app-card-heroe>
-    <app-card-heroe></app-card-heroe>
+    @for (hero of heroes(); track hero.id) {
+        <app-card-heroe [hero]="hero"></app-card-heroe>
+    }
 </div>
