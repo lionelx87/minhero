@@ -1,0 +1,25 @@
+import { CommonModule } from '@angular/common';
+import { Component, inject, Signal } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { BreakpointsService } from '@shared/services';
+
+@Component({
+  selector: 'app-search-box',
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+  ],
+  templateUrl: './search-box.component.html',
+  styleUrl: './search-box.component.scss',
+})
+export class SearchBoxComponent {
+  private readonly breakpointsService = inject(BreakpointsService);
+
+  isMobile: Signal<boolean> = this.breakpointsService.isMobile;
+}

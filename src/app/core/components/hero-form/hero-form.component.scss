@@ -1,0 +1,36 @@
+.hero-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 40.625rem;
+    margin: 0 auto;
+    border: .0625rem solid #3f4948;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    box-shadow: rgba(99, 99, 99, 0.2) 0 .125rem .5rem 0;
+
+    &__powerstats {
+        padding: 1rem;
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 5rem;
+
+            .powerstat-header {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
+
+    &__actions {
+        display: flex;
+        gap: 2rem;
+
+        .btn {
+            flex: 1;
+        }
+
+        
+    }
+}

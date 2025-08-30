@@ -20,6 +20,9 @@
     "baseUrl": "./src",
     "paths": {
       "@core/*": ["app/core/*"],
+      "@pages/*": ["app/pages/*"],
+      "@layouts/*": ["app/layouts/*"],
+      "@shared/*": ["app/shared/*"],
     }
   },
   "angularCompilerOptions": {
