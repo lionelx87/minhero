@@ -1,6 +1,6 @@
 <div class="home-page">
   <div class="home-page__header">
-    <app-search-box></app-search-box>
+    <app-search-box (onSearchChange)="onSearchChange($event)"></app-search-box>
     <div class="btn__add">
       <button mat-fab [extended]="!isMobile()" (click)="goCreateHero()">
         <mat-icon>add</mat-icon>

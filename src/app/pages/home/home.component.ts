@@ -37,6 +37,10 @@ export class HomeComponent {
     return this.heroService.searchHeroes(term);
   });
 
+  onSearchChange(term: string) {
+    this.searchTerm.set(term);
+  }
+
   goCreateHero() {
     this.router.navigate(['/heroes/new']);
   }
