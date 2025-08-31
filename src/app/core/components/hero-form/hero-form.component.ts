@@ -1,5 +1,12 @@
-import { Component, inject, input, output, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormGroup,
@@ -21,7 +28,7 @@ interface PowerstatConfig {
 
 interface Publisher {
   value: string;
-  viewValue: string;
+  label: string;
 }
 
 @Component({
@@ -41,22 +48,6 @@ interface Publisher {
 export class HeroFormComponent {
   private readonly fb = inject(FormBuilder);
 
-  heroForm!: FormGroup;
-  formValid = signal<boolean>(false);
-  heroSubmit = output<Partial<Hero>>();
-  heroUpdate = output<Hero>();
-  hero = input<Hero>();
-  editMode = false;
-
-  onCancel = output<void>();
-
-  intelligence = signal<number>(50);
-  strength = signal<number>(50);
-  speed = signal<number>(50);
-  durability = signal<number>(50);
-  power = signal<number>(50);
-  combat = signal<number>(50);
-
   powerstatConfigs: PowerstatConfig[] = [
     { key: 'intelligence', label: 'Inteligencia' },
     { key: 'strength', label: 'Fuerza' },
@@ -67,88 +58,102 @@ export class HeroFormComponent {
   ];
 
   publishers: Publisher[] = [
-    { value: 'Marvel Comics', viewValue: 'Marvel Comics' },
-    { value: 'DC Comics', viewValue: 'DC Comics' },
-    { value: 'Giant-Man', viewValue: 'Giant-Man' },
-    { value: 'Oraclee', viewValue: 'Oracle' },
+    { value: 'Marvel Comics', label: 'Marvel Comics' },
+    { value: 'DC Comics', label: 'DC Comics' },
+    { value: 'Giant-Man', label: 'Giant-Man' },
+    { value: 'Oraclee', label: 'Oracle' },
   ];
 
-  ngOnInit(): void {
-    this.heroForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      powerstats: this.fb.group({
-        intelligence: [
-          50,
-          [Validators.required, Validators.min(0), Validators.max(100)],
-        ],
-        strength: [
-          50,
-          [Validators.required, Validators.min(0), Validators.max(100)],
-        ],
-        speed: [
-          50,
-          [Validators.required, Validators.min(0), Validators.max(100)],
-        ],
-        durability: [
-          50,
-          [Validators.required, Validators.min(0), Validators.max(100)],
-        ],
-        power: [
-          50,
-          [Validators.required, Validators.min(0), Validators.max(100)],
-        ],
-        combat: [
-          50,
-          [Validators.required, Validators.min(0), Validators.max(100)],
-        ],
-      }),
-      firstAppearance: ['', Validators.required],
-      publisher: ['', Validators.required],
-      biography: ['', [Validators.required, Validators.minLength(10)]],
-    });
-    this.setupFormSignalSync();
+  heroForm: FormGroup = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(2)]],
+    powerstats: this.fb.group({
+      intelligence: [
+        50,
+        [Validators.required, Validators.min(0), Validators.max(100)],
+      ],
+      strength: [
+        50,
+        [Validators.required, Validators.min(0), Validators.max(100)],
+      ],
+      speed: [
+        50,
+        [Validators.required, Validators.min(0), Validators.max(100)],
+      ],
+      durability: [
+        50,
+        [Validators.required, Validators.min(0), Validators.max(100)],
+      ],
+      power: [
+        50,
+        [Validators.required, Validators.min(0), Validators.max(100)],
+      ],
+      combat: [
+        50,
+        [Validators.required, Validators.min(0), Validators.max(100)],
+      ],
+    }),
+    firstAppearance: ['', Validators.required],
+    publisher: ['', Validators.required],
+    biography: ['', [Validators.required, Validators.minLength(10)]],
+  });
 
-    if (this.hero()) {
-      this.editMode = true;
-      this.heroForm.patchValue({
-        name: this.hero()!.name,
-        powerstats: this.hero()!.powerstats,
-        firstAppearance: this.hero()!.firstAppearance,
-        publisher: this.hero()!.publisher,
-        biography: this.hero()!.biography,
-        image: this.hero()!.image,
-      });
-      this.intelligence.set(this.hero()!.powerstats.intelligence);
-      this.strength.set(this.hero()!.powerstats.strength);
-      this.speed.set(this.hero()!.powerstats.speed);
-      this.durability.set(this.hero()!.powerstats.durability);
-      this.power.set(this.hero()!.powerstats.power);
-      this.combat.set(this.hero()!.powerstats.combat);
-    }
+  intelligence = signal<number>(50);
+  strength = signal<number>(50);
+  speed = signal<number>(50);
+  durability = signal<number>(50);
+  power = signal<number>(50);
+  combat = signal<number>(50);
+
+  hero = input<Hero>();
+
+  heroSubmit = output<Partial<Hero>>();
+  heroUpdate = output<Hero>();
+  onCancel = output<void>();
+
+  statusSig = toSignal(this.heroForm.statusChanges, {
+    initialValue: this.heroForm?.status,
+  });
+
+  formValid = computed(() => this.statusSig() === 'VALID');
+
+  ngOnInit(): void {
+    this.setupEditMode();
   }
 
-  private setupFormSignalSync(): void {
-    this.heroForm.statusChanges.pipe().subscribe((status) => {
-      this.formValid.set(status === 'VALID');
+  private setupEditMode(): void {
+    const hero = this.hero();
+    if (!hero) return;
+    const { name, powerstats, firstAppearance, publisher, biography, image } =
+      hero;
+    this.heroForm.patchValue({
+      name,
+      powerstats,
+      firstAppearance,
+      publisher,
+      biography,
+      image,
     });
+    const { intelligence, strength, speed, durability, power, combat } =
+      powerstats;
+    this.intelligence.set(intelligence);
+    this.strength.set(strength);
+    this.speed.set(speed);
+    this.durability.set(durability);
+    this.power.set(power);
+    this.combat.set(combat);
   }
 
   onSubmit(): void {
     if (this.heroForm.valid) {
       const formValue = this.heroForm.value;
-      if (this.hero()) {
-        const heroData: Hero = {
-          ...formValue,
-          id: this.hero()?.id,
-        };
-        this.heroUpdate.emit(heroData);
-      } else {
-        const heroData: Partial<Hero> = {
-          ...formValue,
-        };
-        this.heroSubmit.emit(heroData);
-        return;
-      }
+      const hero = this.hero();
+      const heroData = hero
+        ? {
+            ...formValue,
+            id: this.hero()?.id,
+          }
+        : { ...formValue };
+      hero ? this.heroUpdate.emit(heroData) : this.heroSubmit.emit(heroData);
     }
     this.heroForm.markAllAsTouched();
   }
