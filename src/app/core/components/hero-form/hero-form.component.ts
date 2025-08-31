@@ -1,12 +1,15 @@
 import {
   Component,
   computed,
+  DestroyRef,
   inject,
+  Injector,
   input,
   output,
+  runInInjectionContext,
   signal,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormGroup,
@@ -49,6 +52,8 @@ interface Publisher {
 })
 export class HeroFormComponent {
   private readonly fb = inject(FormBuilder);
+  private readonly injector = inject(Injector);
+  private readonly destroyRef = inject(DestroyRef);
 
   powerstatConfigs: PowerstatConfig[] = [
     { key: 'intelligence', label: 'Inteligencia' },
@@ -99,6 +104,7 @@ export class HeroFormComponent {
     biography: ['', [Validators.required, Validators.minLength(10)]],
   });
 
+  powerstats = this.heroForm.get('powerstats');
   intelligence = signal<number>(50);
   strength = signal<number>(50);
   speed = signal<number>(50);
@@ -112,14 +118,45 @@ export class HeroFormComponent {
   heroUpdate = output<Hero>();
   onCancel = output<void>();
 
-  statusSig = toSignal(this.heroForm.statusChanges, {
+  heroFormStatusChanges = toSignal(this.heroForm.statusChanges, {
     initialValue: this.heroForm?.status,
   });
 
-  formValid = computed(() => this.statusSig() === 'VALID');
+  formValid = computed(() => this.heroFormStatusChanges() === 'VALID');
 
   ngOnInit(): void {
     this.setupEditMode();
+    this.syncPowerstats();
+  }
+
+  private syncPowerstats(): void {
+    runInInjectionContext(this.injector, () => {
+      const powerstats = this.heroForm.get('powerstats');
+      powerstats
+        ?.get('intelligence')
+        ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((value) => this.intelligence.set(value || 0));
+      powerstats
+        ?.get('strength')
+        ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((value) => this.strength.set(value || 0));
+      powerstats
+        ?.get('speed')
+        ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((value) => this.speed.set(value || 0));
+      powerstats
+        ?.get('durability')
+        ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((value) => this.durability.set(value || 0));
+      powerstats
+        ?.get('power')
+        ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((value) => this.power.set(value || 0));
+      powerstats
+        ?.get('combat')
+        ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((value) => this.combat.set(value || 0));
+    });
   }
 
   private setupEditMode(): void {
