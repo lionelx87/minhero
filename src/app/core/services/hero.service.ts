@@ -34,7 +34,8 @@ export class HeroService {
     const newHero: Hero = {
       ...hero,
       id: nextId,
-      image: `assets/images/heroes/${nextId}.webp`,
+      // image: `assets/images/heroes/${nextId}.webp`,
+      image: '',
     };
     this.heroesSignal.update((heroes) => [...heroes, newHero]);
     return newHero;
