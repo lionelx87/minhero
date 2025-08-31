@@ -1,4 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormGroup,
@@ -11,12 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
-import { Powerstat } from '@core/models';
-
-interface Food {
-  value: string;
-  viewValue: string;
-}
+import { Hero, Powerstat } from '@core/models';
 
 interface PowerstatConfig {
   key: keyof Powerstat;
@@ -46,6 +42,8 @@ export class HeroFormComponent {
   private readonly fb = inject(FormBuilder);
 
   heroForm!: FormGroup;
+  formValid = signal<boolean>(false);
+  heroSubmit = output<Partial<Hero>>();
 
   intelligence = signal<number>(50);
   strength = signal<number>(50);
@@ -105,17 +103,23 @@ export class HeroFormComponent {
       publisher: ['', Validators.required],
       biography: ['', [Validators.required, Validators.minLength(10)]],
     });
+    this.setupFormSignalSync();
   }
 
-  foods: Food[] = [
-    { value: 'dc', viewValue: 'DC' },
-    { value: 'marvel', viewValue: 'Marvel' },
-    { value: 'giant-man', viewValue: 'Giant-Man' },
-    { value: 'oracle', viewValue: 'Oracle' },
-  ];
+  private setupFormSignalSync(): void {
+    this.heroForm.statusChanges.pipe().subscribe((status) => {
+      this.formValid.set(status === 'VALID');
+    });
+  }
 
   onSubmit(): void {
-    console.log(this.heroForm.valid);
-    console.log(this.heroForm.value);
+    if (this.heroForm.valid) {
+      const formValue = this.heroForm.value;
+      const heroData: Partial<Hero> = {
+        ...formValue,
+      };
+      this.heroSubmit.emit(heroData);
+    }
+    this.heroForm.markAllAsTouched();
   }
 }

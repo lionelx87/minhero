@@ -6,5 +6,7 @@
         </button>
     </div>
     <h1 class="hero-upsert-page__title">Nuevo Héroe</h1>
-    <app-hero-form></app-hero-form>
+    <app-hero-form
+      (heroSubmit)="heroSubmit($event)"
+    ></app-hero-form>
 </div>

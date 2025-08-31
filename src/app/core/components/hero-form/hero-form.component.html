@@ -9,6 +9,7 @@
     }
   </mat-form-field>
   <div class="hero-form__powerstats" formGroupName="powerstats">
+    <h1>{{ formValid() }}</h1>
     <h2 class="title">Estadísticas</h2>
     <div class="details">
       @for (powerstat of powerstatConfigs; track powerstat.key) {
@@ -78,6 +79,6 @@
 
   <div class="hero-form__actions">
     <button class="btn" mat-flat-button>Cancelar</button>
-    <button type="submit" class="btn" mat-flat-button>Aceptar</button>
+    <button type="submit" class="btn" mat-flat-button [disabled]="!formValid()">Aceptar</button>
   </div>
 </form>
