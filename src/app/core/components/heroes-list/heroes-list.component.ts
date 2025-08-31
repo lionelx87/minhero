@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CardHeroComponent } from '../card-hero/card-hero.component';
 import { Hero } from '@core/models';
 
@@ -10,4 +10,5 @@ import { Hero } from '@core/models';
 })
 export class HeroesListComponent {
   heroes = input.required<Hero[]>();
+  onDeleteHero = output<number>();
 }

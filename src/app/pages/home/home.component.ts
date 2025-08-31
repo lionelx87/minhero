@@ -41,6 +41,10 @@ export class HomeComponent {
     this.searchTerm.set(term);
   }
 
+  onDeleteHero(id: number) {
+    this.heroService.deleteHero(id);
+  }
+
   goCreateHero() {
     this.router.navigate(['/heroes/new']);
   }

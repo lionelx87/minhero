@@ -1,5 +1,8 @@
 <div class="heroes-list">
     @for (hero of heroes(); track hero.id) {
-        <app-card-heroe [hero]="hero"></app-card-heroe>
+        <app-card-heroe 
+            [hero]="hero"
+            (onDeleteConfirm)="onDeleteHero.emit(hero.id)"
+        ></app-card-heroe>
     }
 </div>

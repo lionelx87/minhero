@@ -1,10 +1,11 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { HeroConfirmDeleteComponent } from '../hero-confirm-delete/hero-confirm-delete.component';
 import { Hero } from '@core/models';
+import { HeroConfirmDeleteComponent } from '../hero-confirm-delete/hero-confirm-delete.component';
+import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-card-heroe',
@@ -17,6 +18,7 @@ export class CardHeroComponent {
   readonly dialog = inject(MatDialog);
 
   hero = input.required<Hero>();
+  onDeleteConfirm = output<boolean>();
 
   goEditHero(): void {
     this.router.navigate(['/heroes/2/edit']);
@@ -27,6 +29,10 @@ export class CardHeroComponent {
   }
 
   openDialog(): void {
-    this.dialog.open(HeroConfirmDeleteComponent);
+    const dialogRef = this.dialog.open(HeroConfirmDeleteComponent);
+    dialogRef
+      .afterClosed()
+      .pipe(filter(Boolean), take(1))
+      .subscribe(() => this.onDeleteConfirm.emit(true));
   }
 }
