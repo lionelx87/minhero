@@ -1,7 +1,7 @@
 <form [formGroup]="heroForm" (ngSubmit)="onSubmit()" class="hero-form">
   <mat-form-field>
     <mat-label>Nombre</mat-label>
-    <input matInput formControlName="name" />
+    <input matInput appUppercaseInput formControlName="name" />
     @if (heroForm.get('name')?.hasError('required')) {
     <mat-error> El nombre es requerido </mat-error>
     } @if (heroForm.get('name')?.hasError('minlength')) {
@@ -14,8 +14,8 @@
       @for (powerstat of powerstatConfigs; track powerstat.key) {
       <div class="powerstat-item">
         <div class="powerstat-header">
-          <label class="example-name-label">{{ powerstat.label }}</label>
-          <label class="example-value-label">
+          <label>{{ powerstat.label }}</label>
+          <label>
             @switch (powerstat.key) { @case ('intelligence') {
             {{ intelligence() }} } @case ('strength') { {{ strength() }} } @case
             ('speed') { {{ speed() }} } @case ('durability') {
