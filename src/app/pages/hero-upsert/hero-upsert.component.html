@@ -11,5 +11,7 @@
     <app-hero-form
       [hero]="hero()"
       (heroSubmit)="heroSubmit($event)"
+      (heroUpdate)="heroUpdate($event)"
+      (onCancel)="back()"
     ></app-hero-form>
 </div>

@@ -78,7 +78,7 @@
   </mat-form-field>
 
   <div class="hero-form__actions">
-    <button class="btn" mat-flat-button>Cancelar</button>
+    <button class="btn" mat-flat-button (click)="onCancel.emit()">Cancelar</button>
     <button type="submit" class="btn" mat-flat-button [disabled]="!formValid()">Aceptar</button>
   </div>
 </form>

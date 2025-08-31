@@ -37,6 +37,11 @@ export class HeroUpsertComponent {
     this.back();
   }
 
+  heroUpdate(hero: Hero) {
+    this.heroService.updateHero(hero.id, hero);
+    this.back();
+  }
+
   back(): void {
     this.router.navigate(['/']);
   }

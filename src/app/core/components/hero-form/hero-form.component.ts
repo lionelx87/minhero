@@ -44,8 +44,11 @@ export class HeroFormComponent {
   heroForm!: FormGroup;
   formValid = signal<boolean>(false);
   heroSubmit = output<Partial<Hero>>();
+  heroUpdate = output<Hero>();
   hero = input<Hero>();
   editMode = false;
+
+  onCancel = output<void>();
 
   intelligence = signal<number>(50);
   strength = signal<number>(50);
@@ -133,10 +136,19 @@ export class HeroFormComponent {
   onSubmit(): void {
     if (this.heroForm.valid) {
       const formValue = this.heroForm.value;
-      const heroData: Partial<Hero> = {
-        ...formValue,
-      };
-      this.heroSubmit.emit(heroData);
+      if (this.hero()) {
+        const heroData: Hero = {
+          ...formValue,
+          id: this.hero()?.id,
+        };
+        this.heroUpdate.emit(heroData);
+      } else {
+        const heroData: Partial<Hero> = {
+          ...formValue,
+        };
+        this.heroSubmit.emit(heroData);
+        return;
+      }
     }
     this.heroForm.markAllAsTouched();
   }
