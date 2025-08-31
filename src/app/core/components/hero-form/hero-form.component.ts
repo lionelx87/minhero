@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { Hero, Powerstat } from '@core/models';
+import { UppercaseInputDirective } from '@shared/directives/uppercase-input.directive';
 
 interface PowerstatConfig {
   key: keyof Powerstat;
@@ -41,6 +42,7 @@ interface Publisher {
     MatSelectModule,
     MatSliderModule,
     ReactiveFormsModule,
+    UppercaseInputDirective,
   ],
   templateUrl: './hero-form.component.html',
   styleUrl: './hero-form.component.scss',
