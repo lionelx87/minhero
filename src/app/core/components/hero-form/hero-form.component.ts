@@ -1,4 +1,4 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
@@ -44,6 +44,8 @@ export class HeroFormComponent {
   heroForm!: FormGroup;
   formValid = signal<boolean>(false);
   heroSubmit = output<Partial<Hero>>();
+  hero = input<Hero>();
+  editMode = false;
 
   intelligence = signal<number>(50);
   strength = signal<number>(50);
@@ -62,12 +64,10 @@ export class HeroFormComponent {
   ];
 
   publishers: Publisher[] = [
-    { value: 'marvel', viewValue: 'Marvel Comics' },
-    { value: 'dc', viewValue: 'DC Comics' },
-    { value: 'image', viewValue: 'Image Comics' },
-    { value: 'dark-horse', viewValue: 'Dark Horse Comics' },
-    { value: 'idw', viewValue: 'IDW Publishing' },
-    { value: 'other', viewValue: 'Otro' },
+    { value: 'Marvel Comics', viewValue: 'Marvel Comics' },
+    { value: 'DC Comics', viewValue: 'DC Comics' },
+    { value: 'Giant-Man', viewValue: 'Giant-Man' },
+    { value: 'Oraclee', viewValue: 'Oracle' },
   ];
 
   ngOnInit(): void {
@@ -104,6 +104,24 @@ export class HeroFormComponent {
       biography: ['', [Validators.required, Validators.minLength(10)]],
     });
     this.setupFormSignalSync();
+
+    if (this.hero()) {
+      this.editMode = true;
+      this.heroForm.patchValue({
+        name: this.hero()!.name,
+        powerstats: this.hero()!.powerstats,
+        firstAppearance: this.hero()!.firstAppearance,
+        publisher: this.hero()!.publisher,
+        biography: this.hero()!.biography,
+        image: this.hero()!.image,
+      });
+      this.intelligence.set(this.hero()!.powerstats.intelligence);
+      this.strength.set(this.hero()!.powerstats.strength);
+      this.speed.set(this.hero()!.powerstats.speed);
+      this.durability.set(this.hero()!.powerstats.durability);
+      this.power.set(this.hero()!.powerstats.power);
+      this.combat.set(this.hero()!.powerstats.combat);
+    }
   }
 
   private setupFormSignalSync(): void {

@@ -1,4 +1,11 @@
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  signal,
+  effect,
+  computed,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
@@ -14,7 +21,16 @@ import { HeroService } from '@core/services';
 })
 export class HeroUpsertComponent {
   private readonly router = inject(Router);
-  private readonly heroService = inject(HeroService);
+  readonly heroService = inject(HeroService);
+
+  id = input<number, string>(0, {
+    transform: (value: string) => {
+      const numValue = Number(value);
+      return isNaN(numValue) ? 0 : numValue;
+    },
+  });
+
+  hero = computed(() => this.heroService.getHeroById(this.id()));
 
   heroSubmit(hero: Partial<Hero>) {
     this.heroService.createHero(hero as any);

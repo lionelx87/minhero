@@ -21,7 +21,7 @@ export class CardHeroComponent {
   onDeleteConfirm = output<boolean>();
 
   goEditHero(): void {
-    this.router.navigate(['/heroes/2/edit']);
+    this.router.navigate([`/heroes/${this.hero().id}/edit`]);
   }
 
   goHeroDetail(): void {
