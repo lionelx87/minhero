@@ -6,5 +6,12 @@
         </button>
     </div>
     <h1 class="hero-upsert-page__title">Nuevo Héroe</h1>
-    <app-hero-form></app-hero-form>
+    <div>
+</div>
+    <app-hero-form
+      [hero]="hero()"
+      (heroSubmit)="heroSubmit($event)"
+      (heroUpdate)="heroUpdate($event)"
+      (onCancel)="back()"
+    ></app-hero-form>
 </div>

@@ -1,51 +1,85 @@
-<div class="hero-form">
+<form [formGroup]="heroForm" (ngSubmit)="onSubmit()" class="hero-form">
   <mat-form-field>
     <mat-label>Nombre</mat-label>
-    <input matInput />
+    <input matInput formControlName="name" />
+    @if (heroForm.get('name')?.hasError('required')) {
+    <mat-error> El nombre es requerido </mat-error>
+    } @if (heroForm.get('name')?.hasError('minlength')) {
+    <mat-error> El nombre debe tener al menos 2 caracteres </mat-error>
+    }
   </mat-form-field>
-
-  <div class="hero-form__powerstats">
+  <div class="hero-form__powerstats" formGroupName="powerstats">
     <h2 class="title">Estadísticas</h2>
     <div class="details">
-      @for (item of [1,2,3,4,5,6]; track item) {
-      <div class="powerstat-header">
-        <label id="example-name-label" class="example-name-label">Value</label>
-        <label class="example-value-label">{{ slider.value }}</label>
+      @for (powerstat of powerstatConfigs; track powerstat.key) {
+      <div class="powerstat-item">
+        <div class="powerstat-header">
+          <label class="example-name-label">{{ powerstat.label }}</label>
+          <label class="example-value-label">
+            @switch (powerstat.key) { @case ('intelligence') {
+            {{ intelligence() }} } @case ('strength') { {{ strength() }} } @case
+            ('speed') { {{ speed() }} } @case ('durability') {
+            {{ durability() }} } @case ('power') { {{ power() }} } @case
+            ('combat') { {{ combat() }} } }
+          </label>
+        </div>
+        <mat-slider
+          class="powerstat-slider"
+          [max]="100"
+          [min]="0"
+          [step]="1"
+          [discrete]="true"
+          [showTickMarks]="true"
+        >
+          <input matSliderThumb [formControlName]="powerstat.key" />
+        </mat-slider>
       </div>
-      <mat-slider
-        [max]="100"
-        [min]="0"
-        [step]="1"
-        [discrete]="true"
-        [showTickMarks]="true"
-      >
-        <input matSliderThumb [(ngModel)]="value" #slider />
-      </mat-slider>
       }
     </div>
   </div>
-
   <mat-form-field>
     <mat-label>Primera aparición</mat-label>
-    <input matInput />
+    <input matInput formControlName="firstAppearance" />
+    @if (heroForm.get('firstAppearance')?.hasError('required')) {
+    <mat-error> La primera aparición es requerida </mat-error>
+    }
   </mat-form-field>
-
   <mat-form-field>
     <mat-label>Publicador</mat-label>
-    <mat-select [(ngModel)]="selectedValue" name="food">
-      @for (food of foods; track food) {
-      <mat-option [value]="food.value">{{ food.viewValue }}</mat-option>
+    <mat-select formControlName="publisher">
+      @for (publisher of publishers; track publisher.value) {
+      <mat-option [value]="publisher.value">
+        {{ publisher.label }}
+      </mat-option>
       }
     </mat-select>
+    @if (heroForm.get('publisher')?.hasError('required')) {
+    <mat-error> Selecciona un publicador </mat-error>
+    }
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Biografía</mat-label>
-    <textarea matInput></textarea>
+    <textarea
+      matInput
+      formControlName="biography"
+      rows="4"
+      placeholder="Escribe la biografía del héroe..."
+    ></textarea>
+
+    @if (heroForm.get('biography')?.hasError('required')) {
+    <mat-error> La biografía es requerida </mat-error>
+    } @if (heroForm.get('biography')?.hasError('minlength')) {
+    <mat-error> La biografía debe tener al menos 10 caracteres </mat-error>
+    }
   </mat-form-field>
 
   <div class="hero-form__actions">
-    <button class="btn" mat-flat-button>Cancelar</button>
-    <button class="btn" mat-flat-button>Aceptar</button>
+    <button class="btn" mat-flat-button (click)="onCancel.emit()">
+      Cancelar
+    </button>
+    <button type="submit" class="btn" mat-flat-button [disabled]="!formValid()">
+      Aceptar
+    </button>
   </div>
-</div>
+</form>

@@ -6,7 +6,7 @@
   </mat-card-header>
   <img
     mat-card-image
-    [src]="hero().image"
+    [src]="!!hero().image ? hero().image : 'assets/images/heroes/placeholder.webp'"
     [alt]="`Portada de ${hero().name}`"
     (click)="goHeroDetail()"
   />
