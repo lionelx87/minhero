@@ -1,0 +1,11 @@
+<div class="search-box">
+  <mat-form-field class="search-box__input">
+    <mat-label>Busca tu héroe favorito...</mat-label>
+    <input
+      matInput
+      [value]="searchTerm()"
+      #input
+      (input)="onSearchChange.emit(input.value)"
+    />
+  </mat-form-field>
+</div>

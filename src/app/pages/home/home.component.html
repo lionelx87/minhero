@@ -1,0 +1,27 @@
+<div class="home-page">
+  <div class="home-page__header">
+    <app-search-box (onSearchChange)="onSearch($event)"></app-search-box>
+    <div class="btn__add">
+      <button mat-fab [extended]="!isMobile()" (click)="goCreateHero()">
+        <mat-icon>add</mat-icon>
+        @if (!isMobile()) {
+        <span>Nuevo</span>
+        }
+      </button>
+    </div>
+  </div>
+  <div class="home-page__heroes">
+    <app-heroes-list
+      [heroes]="pagedHeroes()"
+      (onDeleteHero)="onDeleteHero($event)"
+    ></app-heroes-list>
+  </div>
+  <div class="home-page__pagination">
+    <app-pagination
+      [pageIndex]="pageIndex()"
+      [total]="total()"
+      [pageSize]="pageSize()"
+      (onPagination)="onPagination($event)"
+    ></app-pagination>
+  </div>
+</div>

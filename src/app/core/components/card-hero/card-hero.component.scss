@@ -1,0 +1,17 @@
+.heroe-card {
+    max-width: 19.125rem;
+
+    img {
+        object-fit: cover;
+        max-height: 18.75rem;        
+    }
+
+    &__biography {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        line-clamp: 5;
+    }
+}

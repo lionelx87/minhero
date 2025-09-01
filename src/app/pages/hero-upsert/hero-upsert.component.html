@@ -1,0 +1,17 @@
+<div class="hero-upsert-page">
+    <div>
+        <button mat-fab extended (click)="back()">
+          <mat-icon>arrow_back</mat-icon>
+          Volver
+        </button>
+    </div>
+    <h1 class="hero-upsert-page__title">Nuevo Héroe</h1>
+    <div>
+</div>
+    <app-hero-form
+      [hero]="hero()"
+      (heroSubmit)="heroSubmit($event)"
+      (heroUpdate)="heroUpdate($event)"
+      (onCancel)="back()"
+    ></app-hero-form>
+</div>
