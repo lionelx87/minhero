@@ -1,59 +1,78 @@
-# Minhero
+# MinHero 🦸‍♂️
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
+Aplicación realizada en Angular v19.2.15 (última LTS hasta la fecha) con **Bun** como package manager.  
+Este README documenta cómo levantar el proyecto en local y mediante **Docker** para desarrollo y pruebas.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Requisitos previos
 
-```bash
-ng serve
-```
+- [Node.js 22.14.0](https://nodejs.org/)
+- [Bun](https://bun.sh/)
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 📦 Scripts disponibles
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Definidos en el `package.json`:
 
-```bash
-ng generate component component-name
-```
+- `bun run start` → Levanta Angular DevServer (`ng serve`)
+- `bun run build` → Genera build de producción
+- `bun run watch` → Build en modo watch
+- `bun run test` → Ejecuta tests con Jest
+- `bun run test:watch` → Ejecuta tests en modo watch
+- `bun run test:coverage` → Genera reporte de cobertura
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## ▶️ Levantar el proyecto (local)
 
 ```bash
-ng test
+# Instalar dependencias
+bun install
+```
+```bash
+# Levantar en modo dev (http://localhost:4200)
+bun run start
+```
+```bash
+# Ejecutar tests
+bun run test
+```
+```bash
+# Ejecutar tests en watch mode
+bun run test:watch
+```
+```bash
+# Ejecutar tests con coverage
+bun run test:coverage
+```
+```bash
+# Build de producción
+bun run build
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+## 🐳 Usar con Docker
 
 ```bash
-ng e2e
+# Build de imágenes
+docker-compose build
 ```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+# Levantar la app (Angular DevServer)
+docker-compose up -d web
+```
+```bash
+# Run tests
+docker-compose --profile test run --rm test
+```
+```bash
+# Run tests con Coverage por consola
+docker compose --profile test run --rm test bun run test:coverage
+```
+```bash
+# Cleanup de volumenes y contenedores
+docker-compose down --volumes --remove-orphans
+```
