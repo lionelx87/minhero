@@ -78,5 +78,23 @@ describe('CardHeroComponent', () => {
       deleteBtn.triggerEventHandler('click', null);
       expect(mockDialog.open).toHaveBeenCalledWith(HeroConfirmDeleteComponent);
     });
+
+    it('should emit onDeleteConfirm when user confirms deletion', () => {
+      jest.spyOn(component.onDeleteConfirm, 'emit');
+
+      const mockDialogRef = {
+        afterClosed: jest.fn().mockReturnValue({
+          pipe: jest.fn().mockReturnValue({
+            subscribe: jest.fn().mockImplementation((callback) => callback()),
+          }),
+        }),
+      } as any;
+
+      mockDialog.open.mockReturnValue(mockDialogRef);
+
+      component.openDialog();
+
+      expect(component.onDeleteConfirm.emit).toHaveBeenCalledWith(true);
+    });
   });
 });
