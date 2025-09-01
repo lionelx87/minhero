@@ -1,4 +1,4 @@
-import { Inject, Injectable, signal } from '@angular/core';
+import { computed, Inject, Injectable, signal } from '@angular/core';
 import { Hero } from '@core/models';
 
 @Injectable({
@@ -6,6 +6,51 @@ import { Hero } from '@core/models';
 })
 export class HeroService {
   public readonly heroesSignal = signal<Hero[]>([]);
+
+  readonly pageIndex = signal(0);
+  readonly pageSize = signal(3);
+  readonly searchTerm = signal('');
+
+  readonly filteredHeroes = computed(() => {
+    const term = this.searchTerm().trim().toLowerCase();
+    if (!term) return this.heroesSignal();
+    return this.heroesSignal().filter((h) =>
+      h.name.toLowerCase().includes(term)
+    );
+  });
+
+  readonly total = computed(() => this.filteredHeroes().length);
+
+  readonly totalPages = computed(() =>
+    Math.max(1, Math.ceil(this.total() / this.pageSize()))
+  );
+
+  readonly pagedHeroes = computed(() => {
+    const page = this.pageIndex();
+    const size = this.pageSize();
+    const list = this.filteredHeroes();
+    const start = page * size;
+    return list.slice(start, start + size);
+  });
+
+  setPage(index: number) {
+    const clamped = Math.max(0, Math.min(index, this.totalPages() - 1));
+    this.pageIndex.set(clamped);
+  }
+  nextPage() {
+    this.setPage(this.pageIndex() + 1);
+  }
+  prevPage() {
+    this.setPage(this.pageIndex() - 1);
+  }
+  setPageSize(size: number) {
+    this.pageSize.set(size);
+    this.setPage(0);
+  }
+  setSearchTerm(term: string) {
+    this.searchTerm.set(term);
+    this.setPage(0);
+  }
 
   constructor(@Inject('HEROES_DATA') heroesData: Hero[]) {
     this.heroesSignal.set([...heroesData]);

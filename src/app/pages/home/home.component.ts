@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, signal, Signal } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import {
   HeroesListComponent,
@@ -30,15 +31,26 @@ export class HomeComponent {
   private readonly heroService = inject(HeroService);
 
   isMobile: Signal<boolean> = this.breakpointsService.isMobile;
-  searchTerm = signal<string>('');
+  filteredHeroes = this.heroService.filteredHeroes;
+  pagedHeroes = this.heroService.pagedHeroes;
+  pageIndex = this.heroService.pageIndex;
+  pageSize = this.heroService.pageSize;
+  total = this.heroService.total;
 
-  filteredHeroes = computed(() => {
-    const term = this.searchTerm().trim().toLowerCase();
-    return this.heroService.searchHeroes(term);
-  });
+  onPageChange(index: number) {
+    this.heroService.setPage(index);
+  }
+  onPageSizeChange(size: number) {
+    this.heroService.setPageSize(size);
+  }
+  onSearch(term: string) {
+    this.heroService.setSearchTerm(term);
+  }
 
-  onSearchChange(term: string) {
-    this.searchTerm.set(term);
+  onPagination(event: PageEvent) {
+    const { pageIndex, pageSize } = event;
+    this.onPageSizeChange(pageSize);
+    this.onPageChange(pageIndex);
   }
 
   onDeleteHero(id: number) {
