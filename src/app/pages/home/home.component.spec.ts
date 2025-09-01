@@ -56,4 +56,16 @@ describe('HomeComponent', () => {
       expect(pagination).toBeTruthy();
     });
   });
+
+  describe('navigation', () => {
+    it('should navigate to "/heroes/new" when goCreateHero is called', () => {
+      component.goCreateHero();
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['/heroes/new']);
+    });
+    it('should navigate to "/heroes/new" when add button is clicked', () => {
+      const addBtn = fixture.debugElement.query(By.css('button'));
+      addBtn.triggerEventHandler('click', null);
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['/heroes/new']);
+    });
+  });
 });
