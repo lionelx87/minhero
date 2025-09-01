@@ -1,0 +1,33 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: minhero-web
+    working_dir: /app
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.angular
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NG_CLI_ANALYTICS=ci
+    tty: true
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: minhero-test
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - CI=true
+    profiles: ["test"]
+    command: ["bun", "run", "test"]
+    tty: true
+    stdin_open: true
