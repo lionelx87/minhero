@@ -1,6 +1,6 @@
 # MinHero 🦸‍♂️
 
-Aplicación realizada en Angular v19.2.15 (última LTS hasta la fecha) con **Bun** como package manager.  
+Aplicación realizada en Angular v19.2.15 (última LTS hasta la fecha) testeada con **Bun** y **NPM** como package managers.
 Este README documenta cómo levantar el proyecto en local y mediante **Docker** para desarrollo y pruebas.
 
 ---
@@ -8,7 +8,7 @@ Este README documenta cómo levantar el proyecto en local y mediante **Docker** 
 ## 🚀 Requisitos previos
 
 - [Node.js 22.14.0](https://nodejs.org/)
-- [Bun](https://bun.sh/)
+- [Bun 1.2.17](https://bun.sh/)
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
@@ -18,12 +18,12 @@ Este README documenta cómo levantar el proyecto en local y mediante **Docker** 
 
 Definidos en el `package.json`:
 
-- `bun run start` → Levanta Angular DevServer (`ng serve`)
-- `bun run build` → Genera build de producción
-- `bun run watch` → Build en modo watch
-- `bun run test` → Ejecuta tests con Jest
-- `bun run test:watch` → Ejecuta tests en modo watch
-- `bun run test:coverage` → Genera reporte de cobertura
+- `[bun|npm] run start` → Levanta Angular DevServer (`ng serve`)
+- `[bun|npm] run build` → Genera build de producción
+- `[bun|npm] run watch` → Build en modo watch
+- `[bun|npm] run test` → Ejecuta tests con Jest
+- `[bun|npm] run test:watch` → Ejecuta tests en modo watch
+- `[bun|npm] run test:coverage` → Genera reporte de cobertura
 
 ---
 
@@ -31,27 +31,27 @@ Definidos en el `package.json`:
 
 ```bash
 # Instalar dependencias
-bun install
+[bun|npm] install
 ```
 ```bash
 # Levantar en modo dev (http://localhost:4200)
-bun run start
+[bun|npm] run start
 ```
 ```bash
 # Ejecutar tests
-bun run test
+[bun|npm] run test
 ```
 ```bash
 # Ejecutar tests en watch mode
-bun run test:watch
+[bun|npm] run test:watch
 ```
 ```bash
 # Ejecutar tests con coverage
-bun run test:coverage
+[bun|npm] run test:coverage
 ```
 ```bash
 # Build de producción
-bun run build
+[bun|npm] run build
 ```
 
 ## 🐳 Usar con Docker
@@ -70,7 +70,7 @@ docker-compose --profile test run --rm test
 ```
 ```bash
 # Run tests con Coverage por consola
-docker compose --profile test run --rm test bun run test:coverage
+docker compose --profile test run --rm test [bun|npm] run test:coverage
 ```
 ```bash
 # Cleanup de volumenes y contenedores

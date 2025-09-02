@@ -28,6 +28,7 @@ services:
     environment:
       - CI=true
     profiles: ["test"]
-    command: ["bun", "run", "test"]
+    # command: ["bun", "run", "test"]
+    command: ["npm", "run", "test"]
     tty: true
     stdin_open: true
