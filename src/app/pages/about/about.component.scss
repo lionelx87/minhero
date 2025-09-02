@@ -1,0 +1,189 @@
+$text-dark: #1a202c;
+$text-light: #718096;
+$white: #ffffff;
+$gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+$shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.1);
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+  }
+}
+
+.about-page {
+  &__intro {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+
+    .title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 60px;
+      color: $text-dark;
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: $gradient-primary;
+        border-radius: 2px;
+      }
+    }
+
+    .description {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 40px;
+      background: linear-gradient(
+        135deg,
+        rgba(102, 126, 234, 0.05),
+        rgba(118, 75, 162, 0.05)
+      );
+      border-left: 4px solid #004f4f;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: $text-dark;
+      font-style: italic;
+      box-shadow: $shadow-sm;
+
+      @media (max-width: 768px) {
+        margin: 30px 20px;
+        padding: 30px 25px;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &__developer {
+    padding: 0 0 100px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+
+    .developer-card {
+      display: flex;
+      align-items: center;
+      background: $white;
+      padding: 60px;
+      border-radius: 24px;
+      box-shadow: $shadow-xl;
+      max-width: 800px;
+      margin: 0 auto;
+      gap: 40px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 30px;
+        gap: 30px;
+      }
+
+      .developer-avatar {
+        flex-shrink: 0;
+
+        .avatar-placeholder {
+          width: 120px;
+          height: 120px;
+          background: $gradient-secondary;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 3rem;
+          box-shadow: $shadow-lg;
+          animation: float 4s ease-in-out infinite;
+        }
+      }
+
+      .developer-info {
+        flex: 1;
+
+        h3 {
+          font-size: 2rem;
+          font-weight: 700;
+          margin-bottom: 20px;
+          color: $text-dark;
+        }
+
+        p {
+          color: $text-light;
+          line-height: 1.7;
+          margin-bottom: 30px;
+          font-size: 1.1rem;
+        }
+
+        .developer-badges {
+          display: flex;
+          gap: 15px;
+          flex-wrap: wrap;
+
+          @media (max-width: 768px) {
+            justify-content: center;
+          }
+
+          .badge {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: $white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: $shadow-sm;
+            transition: all 0.3s ease;
+
+            &:hover {
+              transform: translateY(-2px);
+              box-shadow: $shadow-md;
+            }
+          }
+        }
+      }
+    }
+  }
+}
