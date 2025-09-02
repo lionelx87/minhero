@@ -5,7 +5,7 @@
           Volver
         </button>
     </div>
-    <h1 class="hero-upsert-page__title">Nuevo Héroe</h1>
+    <h1 class="hero-upsert-page__title">{{ hero()?.name ?? 'Nuevo Héroe' }}</h1>
     <div>
 </div>
     <app-hero-form
