@@ -25,7 +25,7 @@ export class CardHeroComponent {
   }
 
   goHeroDetail(): void {
-    this.router.navigate(['/heroes/2']);
+    this.router.navigate([`/heroes/${this.hero().id}`]);
   }
 
   openDialog(): void {
