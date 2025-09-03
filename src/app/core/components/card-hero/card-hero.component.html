@@ -1,17 +1,19 @@
-<mat-card class="heroe-card" appearance="raised">
+<mat-card class="card-hero" appearance="raised">
   <mat-card-header>
     <div mat-card-avatar></div>
     <mat-card-title>{{ hero().name }}</mat-card-title>
     <mat-card-subtitle>{{ hero().publisher }}</mat-card-subtitle>
   </mat-card-header>
-  <img
-    mat-card-image
-    [src]="!!hero().image ? hero().image : 'assets/images/heroes/placeholder.webp'"
-    [alt]="`Portada de ${hero().name}`"
-    (click)="goHeroDetail()"
-  />
+  <div class="card-hero__image-container">
+    <img
+      mat-card-image
+      [src]="!!hero().image ? hero().image : 'assets/images/heroes/placeholder.webp'"
+      [alt]="`Portada de ${hero().name}`"
+      (click)="goHeroDetail()"
+    />
+  </div>
   <mat-card-content>
-    <p class="heroe-card__biography">{{ hero().biography }}</p>
+    <p class="card-hero__biography">{{ hero().biography }}</p>
   </mat-card-content>
   <mat-card-actions>
     <button mat-button (click)="goEditHero()">Editar</button>

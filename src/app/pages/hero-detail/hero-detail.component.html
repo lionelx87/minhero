@@ -1,1 +1,13 @@
-<p>hero-detail works!</p>
+<div class="hero-detail-page">
+    <div>
+        <button mat-fab extended (click)="back()">
+          <mat-icon>arrow_back</mat-icon>
+          Volver
+        </button>
+    </div>
+    <div>
+      <app-hero-information
+        [hero]="hero()!"
+      ></app-hero-information>
+    </div>
+</div>
