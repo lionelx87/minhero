@@ -1,0 +1,54 @@
+.hero-information {
+  max-width: 75rem;
+  margin: 0 auto;
+  border: 1px solid #004f4f;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  &__card {
+    display: flex;
+    gap: 5rem;
+
+    @media (max-width: 1280px) {
+      flex-direction: column;
+    }
+
+    img {
+      width: 21.875rem;
+      object-fit: cover;
+
+      @media (max-width: 1280px) {
+        width: 100%;
+      }
+    }
+    p {
+      font-size: 1.25rem;
+    }
+    .powerstats {
+      display: flex;
+
+      @media (max-width: 1280px) {
+        flex-direction: column;
+      }
+      .details {
+        flex: 1;
+
+        p {
+          span {
+            color: #004f4f;
+          }
+        }
+      }
+      .average {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span {
+          font-size: 10rem;
+          font-weight: 700;
+          color: #004f4f;
+        }
+      }
+    }
+  }
+}

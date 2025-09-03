@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { Hero } from '@core/models';
 
 @Component({
@@ -9,4 +9,16 @@ import { Hero } from '@core/models';
 })
 export class HeroInformationComponent {
   hero = input.required<Hero>();
+
+  averagePower = computed(() => {
+    const stats = this.hero().powerstats;
+    const total =
+      stats.intelligence +
+      stats.strength +
+      stats.speed +
+      stats.durability +
+      stats.power +
+      stats.combat;
+    return Math.round(total / 6);
+  });
 }

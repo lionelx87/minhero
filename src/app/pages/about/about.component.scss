@@ -8,47 +8,6 @@ $shadow-md: 0 .25rem .375rem rgba(0, 0, 0, 0.1);
 $shadow-lg: 0 .625rem 1.5625rem rgba(0, 0, 0, 0.1);
 $shadow-xl: 0 1.25rem 2.5rem rgba(0, 0, 0, 0.1);
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(1.875rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-0.625rem);
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-@keyframes glow {
-  0%,
-  100% {
-    box-shadow: 0 0 .125rem rgba(255, 215, 0, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 1.875rem rgba(255, 215, 0, 0.6);
-  }
-}
-
 .about-page {
   &__intro {
     padding: 100px 0;

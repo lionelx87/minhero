@@ -1,1 +1,24 @@
-<p>{{ hero().name }}</p>
+<div class="hero-information">
+  <div class="hero-information__card">
+    <img [src]="hero().image" [alt]="`Portada de ${hero().name}`">
+    <div>
+      <p>
+        {{ hero().biography }}
+      </p>
+      <div class="powerstats">
+        <div class="details">
+          <h2>Estadísticas de poder</h2>
+          <p>Inteligencia: <span>{{ hero().powerstats.intelligence }}</span></p>
+          <p>Fuerza: <span>{{ hero().powerstats.strength }}</span></p>
+          <p>Velocidad: <span>{{ hero().powerstats.speed }}</span></p>
+          <p>Resistencia: <span>{{ hero().powerstats.durability }}</span></p>
+          <p>Poder: <span>{{ hero().powerstats.power }}</span></p>
+          <p>Combate: <span>{{ hero().powerstats.combat }}</span></p>
+        </div>
+        <div class="average">
+          <span>{{ averagePower() }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
