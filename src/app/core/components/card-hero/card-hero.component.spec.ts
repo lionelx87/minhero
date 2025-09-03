@@ -69,6 +69,10 @@ describe('CardHeroComponent', () => {
       component.goEditHero();
       expect(mockRouter.navigate).toHaveBeenCalledWith(['/heroes/1/edit']);
     });
+    it('should navigate to detail page when goHeroDetail is called', () => {
+      component.goHeroDetail();
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['/heroes/1']);
+    });
   });
 
   describe('delete', () => {
