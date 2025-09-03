@@ -1,13 +1,15 @@
 .card-hero {
     max-width: 19.125rem;
-    border: 1px solid transparent;
+    border: .0625rem solid transparent;
+    min-width: 19.125rem;
+    height: 34.0625rem;
 
     &:not(:hover) {
         opacity: .8;
     }
 
     &:hover {
-        border: 1px solid #004f4f;
+        border: .0625rem solid #004f4f;
         box-sizing: border-box;
         img {
             transform: scale(1.1);
@@ -35,5 +37,12 @@
         -webkit-line-clamp: 5;
         -webkit-box-orient: vertical;
         line-clamp: 5;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        flex: 1;
     }
 }
