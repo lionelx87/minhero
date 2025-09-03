@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, output, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { HeroService } from '@core/services';
 
 @Component({
   selector: 'app-search-box',
@@ -18,6 +19,8 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './search-box.component.scss',
 })
 export class SearchBoxComponent {
-  searchTerm = signal<string>('');
+  private readonly heroService = inject(HeroService);
+
+  searchTerm = this.heroService.searchTerm;
   onSearchChange = output<string>();
 }
