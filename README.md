@@ -18,12 +18,12 @@ Este README documenta cómo levantar el proyecto en local y mediante **Docker** 
 
 Definidos en el `package.json`:
 
-- `[npm] run start` → Levanta Angular DevServer (`ng serve`)
-- `[npm] run build` → Genera build de producción
-- `[npm] run watch` → Build en modo watch
-- `[npm] run test` → Ejecuta tests con Jest
-- `[npm] run test:watch` → Ejecuta tests en modo watch
-- `[npm] run test:coverage` → Genera reporte de cobertura
+- `npm run start` → Levanta Angular DevServer (`ng serve`)
+- `npm run build` → Genera build de producción
+- `npm run watch` → Build en modo watch
+- `npm run test` → Ejecuta tests con Jest
+- `npm run test:watch` → Ejecuta tests en modo watch
+- `npm run test:coverage` → Genera reporte de cobertura
 
 ---
 
@@ -31,27 +31,27 @@ Definidos en el `package.json`:
 
 ```bash
 # Instalar dependencias
-[npm] install
+npm install
 ```
 ```bash
 # Levantar en modo dev (http://localhost:4200)
-[npm] run start
+npm run start
 ```
 ```bash
 # Ejecutar tests
-[npm] run test
+npm run test
 ```
 ```bash
 # Ejecutar tests en watch mode
-[npm] run test:watch
+npm run test:watch
 ```
 ```bash
 # Ejecutar tests con coverage
-[npm] run test:coverage
+npm run test:coverage
 ```
 ```bash
 # Build de producción
-[npm] run build
+npm run build
 ```
 
 ## 🐳 Usar con Docker
@@ -70,7 +70,7 @@ docker-compose --profile test run --rm test
 ```
 ```bash
 # Run tests con Coverage por consola
-docker compose --profile test run --rm test [npm] run test:coverage
+docker compose --profile test run --rm test npm run test:coverage
 ```
 ```bash
 # Cleanup de volumenes y contenedores
