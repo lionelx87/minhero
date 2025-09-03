@@ -12,7 +12,72 @@ describe('HomeComponent', () => {
   let mockHeroService: jest.Mocked<HeroService>;
   let mockRouter: jest.Mocked<Router>;
 
-  const mockHeroesData: Hero[] = [];
+  const mockHeroesData: Hero[] = [
+    {
+      id: 1,
+      name: 'Hero Test',
+      powerstats: {
+        combat: 100,
+        durability: 100,
+        intelligence: 100,
+        power: 100,
+        speed: 100,
+        strength: 100,
+      },
+      biography: 'Biography Test',
+      firstAppearance: 'First Appearance Test',
+      image: '',
+      publisher: 'DC',
+    },
+    {
+      id: 2,
+      name: 'Hero Test',
+      powerstats: {
+        combat: 100,
+        durability: 100,
+        intelligence: 100,
+        power: 100,
+        speed: 100,
+        strength: 100,
+      },
+      biography: 'Biography Test',
+      firstAppearance: 'First Appearance Test',
+      image: '',
+      publisher: 'DC',
+    },
+    {
+      id: 3,
+      name: 'Hero Test',
+      powerstats: {
+        combat: 100,
+        durability: 100,
+        intelligence: 100,
+        power: 100,
+        speed: 100,
+        strength: 100,
+      },
+      biography: 'Biography Test',
+      firstAppearance: 'First Appearance Test',
+      image: '',
+      publisher: 'DC',
+    },
+    {
+      id: 4,
+      name: 'Hero Test',
+      powerstats: {
+        combat: 100,
+        durability: 100,
+        intelligence: 100,
+        power: 100,
+        speed: 100,
+        strength: 100,
+      },
+      biography: 'Biography Test',
+      firstAppearance: 'First Appearance Test',
+      image: '',
+      publisher: 'DC',
+    },
+  ];
 
   beforeEach(async () => {
     mockRouter = {
@@ -66,6 +131,27 @@ describe('HomeComponent', () => {
       const addBtn = fixture.debugElement.query(By.css('button'));
       addBtn.triggerEventHandler('click', null);
       expect(mockRouter.navigate).toHaveBeenCalledWith(['/heroes/new']);
+    });
+  });
+
+  describe('check events', () => {
+    it('should OnSearch be called when a search is performed in the searchBox.', () => {
+      const spy = jest.spyOn(component, 'onSearch');
+      const searchBox = fixture.debugElement.query(By.css('app-search-box'));
+      const input: HTMLInputElement =
+        searchBox.nativeElement.querySelector('input');
+      input.value = 'batman';
+      input.dispatchEvent(new Event('input'));
+      expect(spy).toHaveBeenCalledWith('batman');
+    });
+    it('should onPageChange be called when clicking on the next page', () => {
+      const spy = jest.spyOn(component, 'onPageChange');
+      const buttons = fixture.debugElement.queryAll(
+        By.css('.home-page__pagination button')
+      );
+      const nextPage = buttons[1];
+      nextPage.triggerEventHandler('click', null);
+      expect(spy).toHaveBeenCalledWith(1);
     });
   });
 });

@@ -108,6 +108,18 @@ export class HeroService {
     this.heroesSignal.update((heroes) =>
       heroes.filter((hero) => hero.id !== id)
     );
+    this.adjustPageAfterDelete();
     return true;
+  }
+
+  private adjustPageAfterDelete(): void {
+    const currentPageIndex = this.pageIndex();
+    const newTotalPages = Math.max(
+      1,
+      Math.ceil(this.total() / this.pageSize())
+    );
+    if (currentPageIndex >= newTotalPages) {
+      this.setPage(Math.max(0, newTotalPages - 1));
+    }
   }
 }

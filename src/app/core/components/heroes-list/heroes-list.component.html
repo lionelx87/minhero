@@ -4,5 +4,7 @@
             [hero]="hero"
             (onDeleteConfirm)="onDeleteHero.emit(hero.id)"
         ></app-card-heroe>
+    } @empty {
+        <div class="heroes-list__empty">No hay héroes disponibles</div>
     }
 </div>
